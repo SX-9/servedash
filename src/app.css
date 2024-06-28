@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { @apply [color-scheme:dark]; }
+body { @apply mocha text-text bg-crust p-4; }
+header { @apply mb-2 px-4 flex flex-col justify-center items-center; }
+a { @apply text-sapphire underline; }
+h1 { @apply text-3xl; }
+h2 { @apply text-2xl; }
+h3 { @apply text-lg; }
+li { @apply text-sm list-disc ml-6; }
+
+button a { @apply no-underline text-subtext1; }
+button:not(.nodefault) { @apply bg-surface1; }
+button { @apply px-2 py-1 rounded-2xl; }
+progress.warn { @apply bar-full:bg-yellow; }
+
+div.chips { @apply rounded-2xl text-sm px-1.5 py-0.5 m-0.5 w-fit inline-block text-crust; }
+div.card { @apply bg-base p-4 m-1; }
+.btngroup { @apply inline-flex rounded-lg; }
+.btngroup button { @apply inline-flex rounded-none first:rounded-s-2xl first:ms-0 last:rounded-e-2xl border border-crust; }
+
+table { @apply min-w-full bg-base; }
+progress { @apply bar-empty:bg-surface2 bar-full:bg-green w-full bar-full:transition-all bar-full:duration-200 h-2; }
+progress.warn { @apply bar-full:bg-red; }
+th { @apply bg-surface0; }
+td, th { @apply border-crust border-solid border-2; }
+tr.highlight td { @apply bg-surface0; }
+td { @apply p-2; }
+hr { @apply my-1 border-solid border-overlay0; }
+
+label { @apply font-bold; }
+input, select { @apply bg-surface0 accent-sapphire; }
+input:not([type="checkbox"]):not([type="radio"]), select { @apply block rounded-md p-1 bg-surface1 font-mono; }
+input[type="number"] { @apply [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none; }
+*[disabled] { @apply opacity-50 cursor-not-allowed; }
+dialog form input { @apply mt-1 mb-2; }
+dialog { @apply text-text bg-surface0 p-4 mx-auto border-2 border-crust; }
+dialog::backdrop { @apply bg-crust opacity-50; }
