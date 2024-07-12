@@ -115,7 +115,7 @@
   }
   
   async function doContainers(action: ContainerAction, danger?: boolean) {
-    if (danger && !confirm('Are you sure?')) return;
+    if (danger && !confirm(`Are you sure you want to ${action} ${selection.length} containers?`)) return;
     let errTrig = false;
     indexProcessing = 0;
     processing = true;
@@ -142,10 +142,11 @@
   }
   
   function toggleAll(e: Event) {
-    selection = (e.target as HTMLInputElement).checked ? [...data.containers] : [];
+    selection = (e.target as HTMLInputElement).checked ? data.containers : [];
   }
 </script>
 
+<span>{selection.length} selected.</span>
 <div class="mb-2">
   <div class="btngroup">
     <button disabled={processing} class="bg-green text-crust nodefault" on:click={() => dialog.showModal()}>Create</button>
@@ -172,7 +173,7 @@
         <td class="text-center">
           <input type="checkbox" bind:group={selection} value={container} disabled={processing}>
         </td>
-        <td>{container.name}</td>
+        <td class="font-semibold">{container.name}</td>
         <td>{container.image}</td>
         <td>
           {#if ['running', 'created'].includes(container.status)}

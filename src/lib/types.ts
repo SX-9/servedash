@@ -1,25 +1,14 @@
 import osu from 'node-os-utils';
 import os from 'os';
 
-export type ContainerCreateInfo = {
+export type dirContents = {
   name: string,
-  image: string,
-  cwd: string,
-  ports: {
-    public: number,
-    private: number,
-    protocol: 'tcp' | 'udp',
-  }[],
-  env: {
-    key: string,
-    value: string,
-  }[],
-  volumes: {
-    host: string,
-    container: string,
-  }[],
-  cmdline: string[],
-  restart: 'always' | 'unless-stopped' | 'on-failure',
+  mask: string,
+  type: 'dir' | 'file' | 'link' | 'dev' | 'pipe' | 'sock',
+  size: number,
+  lmod: number,
+  owner: number,
+  group: number,
 }
 
 export type Usage = {
@@ -45,6 +34,7 @@ export type ServerInfoDetailed = {
   platform: string,
   release: string,
   docker: string,
+  motd: string,
   network: NodeJS.Dict<os.NetworkInterfaceInfo[]>,
 }
 
@@ -66,3 +56,24 @@ export type ContainerInfo = {
 }
 
 export type ContainerAction = 'start' | 'stop' | 'restart' | 'delete';
+
+export type ContainerCreateInfo = {
+  name: string,
+  image: string,
+  cwd: string,
+  ports: {
+    public: number,
+    private: number,
+    protocol: 'tcp' | 'udp',
+  }[],
+  env: {
+    key: string,
+    value: string,
+  }[],
+  volumes: {
+    host: string,
+    container: string,
+  }[],
+  cmdline: string[],
+  restart: 'always' | 'unless-stopped' | 'on-failure',
+}

@@ -5,6 +5,7 @@ import { execSync } from 'child_process';
 import { writable } from 'svelte/store';
 import Docker from 'dockerode';
 import os from 'os';
+import { readFileSync } from 'fs';
 
 export const docker = new Docker();
 export const iconCache = writable<{
@@ -103,6 +104,7 @@ export async function getDetailedInfo(): Promise<ServerInfoDetailed> {
     platform: os.platform(),
     release: os.release(),
     network: os.networkInterfaces(),
+    motd: readFileSync('/etc/motd').toString('utf8'),
     docker: dockerInfo.Version,
   }
 }

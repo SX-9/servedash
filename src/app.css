@@ -29,8 +29,10 @@ td, th { @apply border-crust border-solid border-2; }
 tr.highlight td { @apply bg-surface0; }
 td { @apply p-2; }
 hr { @apply my-1 border-solid border-overlay0; }
+th:has(input), td:has(input) { @apply text-center w-4; }
 
 label { @apply font-bold; }
+input:focus { @apply outline-none; }
 input, select { @apply bg-surface0 accent-sapphire; }
 input:not([type="checkbox"]):not([type="radio"]), select { @apply block rounded-md p-1 bg-surface1 font-mono; }
 input[type="number"] { @apply [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none; }

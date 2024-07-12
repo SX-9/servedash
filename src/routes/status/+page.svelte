@@ -55,5 +55,9 @@
       <li><b>{$usages?.docker.stopped}</b> Stopped</li>
     </ul>
   </div>
+  <div class="card">
+    <h2 class="mb-2">MOTD</h2>
+    <p class="font-mono text-xs">{data?.motd}</p>
+  </div>
 </div>
       

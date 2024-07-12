@@ -10,6 +10,5 @@
     <button disabled={path === "/containers"}><a href="/containers">Containers</a></button>
     <!-- <button disabled={path === "/shell"}><a href="/shell">Shell</a></button> -->
     <!-- ^^ waiting for official websocket support -->
-    <!-- <button disabled={path === "/files"}><a href="/files">Files</a></button> -->
-    <!-- ^^ work in progress -->
+    <button disabled={path === "/files"}><a href="/files">Files</a></button>
 </nav>

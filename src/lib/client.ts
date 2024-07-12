@@ -18,3 +18,24 @@ export function readableUptime(seconds: number) {
 
   return `${hoursStr}:${minutesStr}:${secondsStr} up${daysStr}`;
 }
+
+export function readableByteSize(bytes: number, decimals: number = 2) {
+  if (bytes === 0) return '0B';
+
+  const k: number = 1024;
+  const dm: number = decimals < 0 ? 0 : decimals;
+  const sizes: string[] = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+  const i: number = Math.floor(Math.log(bytes) / Math.log(k));
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + sizes[i];
+}
+
+export function convertPermissions(mask: number) {
+  const perms = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'rw-', 'rwx'];
+  return mask
+      .toString()
+      .split('')
+      .map(digit => perms[parseInt(digit)])
+      .join('');
+}

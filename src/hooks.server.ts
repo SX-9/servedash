@@ -13,7 +13,7 @@ const users: AuthUser[] = [
   }
 ];
 
-export const handle: Handle = ({ event, resolve }) => {
+export const handle: Handle = async ({ event, resolve }) => {
     const authorization = event.request.headers.get('Authorization');
     const timestamp = new Date().toISOString();
     const method = event.request.method;
@@ -23,6 +23,15 @@ export const handle: Handle = ({ event, resolve }) => {
     console.log(`[${timestamp}] ${ip} ${method} ${path}`);
 
     if (env.NODE_ENV === 'development') {
+        // if (path.includes('/api')) {
+        //     const headers = new Headers(event.request.headers);
+        //     const body = event.request.body ? await event.request.clone().text() : '';
+        //     headers.forEach((value, key) => console.log(`| ${key}: ${value}`));
+        //     if (event.request.headers.get('Content-Type')?.includes('text')) {
+        //         console.log(`| `);
+        //         console.log(`| ${body}`);
+        //     }
+        // }
         return resolve(event);
     }
 
