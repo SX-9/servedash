@@ -41,10 +41,11 @@ dialog form input { @apply mt-1 mb-2; }
 dialog { @apply text-text bg-surface0 p-4 mx-auto border-2 border-crust; }
 dialog::backdrop { @apply bg-crust opacity-50; }
 
-nav { @apply bg-mantle flex justify-evenly sm:justify-center items-center gap-2 sm:gap-6 fixed bottom-0 sm:m-0 sm:p-0 sm:static sm:bg-transparent sm:w-auto py-2 w-screen; }
+nav { @apply bg-mantle flex justify-evenly sm:justify-center items-center gap-2 sm:gap-6 fixed bottom-0 sm:m-0 sm:p-0 sm:static sm:bg-transparent sm:w-auto py-2 w-screen max-h-16; }
+nav a.active { @apply text-sapphire; }
+nav a.active svg { @apply h-6 sm:w-auto sm:h-auto sm:w-auto sm:h-auto; }
+nav a.active span { @apply text-xs sm:text-[1rem]; }
 nav a { @apply py-2 text-text no-underline flex flex-col sm:flex-row sm:gap-1 justify-center items-center; }
 nav a svg { @apply inline w-10 h-10 sm:w-auto sm:h-auto; }
-nav a span { @apply hidden sm:block text-xs sm:text-[1rem]; }
-nav a.active { @apply text-sapphire; }
-nav a.active svg { @apply w-6 h-6 sm:w-auto sm:h-auto; }
-nav a.active span { @apply block; }
+nav a span { @apply text-[0] sm:text-[1rem]; }
+nav a * { @apply transition-all duration-200 ease-in-out; }

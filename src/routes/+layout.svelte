@@ -27,7 +27,7 @@
   </title>
 </svelte:head>
 <header class="mb-4">
-  <h3 class="text-subtext0 italic sm:mb-2">
+  <h3 class="text-subtext0 italic sm:mb-1">
     {message
       ? message
       : displaySwitch
@@ -37,11 +37,10 @@
   </h3>
   <nav>
     <a href="/" class:active={$page.url.pathname === '/'}><Icon icon="ic:sharp-home" /> <span>Home</span></a>
-    <a href="/status" class:active={$page.url.pathname === '/status'}><Icon icon="ic:baseline-bar-chart" /> <span>Status</span></a>
-    <a href="/containers" class:active={$page.url.pathname === '/containers'}><Icon icon="ic:sharp-category" /> <span>Containers</span></a>
-    <a href="/shell" class:active={$page.url.pathname === '/shell'}><Icon icon="ic:sharp-keyboard-command-key" /> <span>Shell</span></a>
-    <!-- ^^ waiting for official websocket support -->
+    <a href="/status" class:active={$page.url.pathname === '/status'}><Icon icon="ic:sharp-monitor-heart" /> <span>Status</span></a>
+    <a href="/containers" class:active={$page.url.pathname === '/containers'}><Icon icon="ic:sharp-apps" /> <span>Containers</span></a>
     <a href="/files" class:active={$page.url.pathname === '/files'}><Icon icon="ic:sharp-folder" /> <span>Files</span></a>
+    <a href="/shell" class:active={$page.url.pathname === '/shell'}><Icon icon="ic:sharp-terminal" /> <span>Shell</span></a>
   </nav>
   <span class="text-red italic">{err?`!! ${err}, check devtools for details !!`:''}</span>
 </header>

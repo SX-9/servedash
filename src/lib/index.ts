@@ -2,16 +2,12 @@ import type { ContainerAction, ContainerCreateInfo, ContainerInfo, ServerInfo, S
 import osu, { type NetStatMetrics } from 'node-os-utils';
 import { env } from '$env/dynamic/private';
 import { execSync } from 'child_process';
-import { writable } from 'svelte/store';
+import { EventEmitter } from 'events';
+import { readFileSync } from 'fs';
 import Docker from 'dockerode';
 import os from 'os';
-import { readFileSync } from 'fs';
 
 export const docker = new Docker();
-export const iconCache = writable<{
-  org: string;
-  iconRes: Blob;
-}[]>([]);
 
 export function shellExec(cmd: string) {
   try {
