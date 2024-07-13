@@ -8,7 +8,7 @@ header { @apply mb-2 px-4 flex flex-col justify-center items-center; }
 a { @apply text-sapphire underline; }
 h1 { @apply text-3xl; }
 h2 { @apply text-2xl; }
-h3 { @apply text-lg; }
+h3 { @apply text-xl; }
 li { @apply text-sm list-disc ml-6; }
 
 button a { @apply no-underline text-subtext1; }
@@ -40,3 +40,11 @@ input[type="number"] { @apply [appearance:textfield] [&::-webkit-outer-spin-butt
 dialog form input { @apply mt-1 mb-2; }
 dialog { @apply text-text bg-surface0 p-4 mx-auto border-2 border-crust; }
 dialog::backdrop { @apply bg-crust opacity-50; }
+
+nav { @apply bg-mantle flex justify-evenly sm:justify-center items-center gap-2 sm:gap-6 fixed bottom-0 sm:m-0 sm:p-0 sm:static sm:bg-transparent sm:w-auto py-2 w-screen; }
+nav a { @apply py-2 text-text no-underline flex flex-col sm:flex-row sm:gap-1 justify-center items-center; }
+nav a svg { @apply inline w-10 h-10 sm:w-auto sm:h-auto; }
+nav a span { @apply hidden sm:block text-xs sm:text-[1rem]; }
+nav a.active { @apply text-sapphire; }
+nav a.active svg { @apply w-6 h-6 sm:w-auto sm:h-auto; }
+nav a.active span { @apply block; }
