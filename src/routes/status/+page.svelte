@@ -4,6 +4,7 @@
   import { source } from 'sveltekit-sse';
   import { notifs } from '$lib/client';
   import { onMount } from 'svelte';
+  import Icon from '@iconify/svelte';
 
   const usages: Readable<Usage> = source('/api/sse').select('usage').json();
   export let data: ServerInfoDetailed;
@@ -35,8 +36,8 @@
     </ul>
     <hr>
     <ul>
-      <li><b>{$usages?.net.total.outputMb} MB</b> Upload</li>
-      <li><b>{$usages?.net.total.inputMb} MB</b> Download</li>
+      <li><span class="text-green"><Icon icon="ic:sharp-upload" /></span> <b>{$usages?.net.total.outputMb} MB</b></li>
+      <li><span class="text-blue"><Icon icon="ic:sharp-file-download" /></span> <b>{$usages?.net.total.inputMb} MB</b></li>
     </ul>
   </div>
   <div class="card">

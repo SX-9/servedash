@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { source } from "sveltekit-sse";
+	import Icon from "@iconify/svelte";
 
 	let cmd = '';
 	let output = '';
@@ -33,6 +34,6 @@
 <form on:submit={submitHandler}>
 	<input class="w-full" type="text" placeholder="cat /etc/motd" bind:value={cmd}>
 	<div class="mt-2 btngroup">
-		<button type="button" on:click={() => output = ''}>Clear</button>
+		<button type="button" on:click={() => output = ''}><Icon icon="ic:sharp-clear-all" /></button>
 	</div>
 </form>

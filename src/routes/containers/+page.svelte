@@ -1,8 +1,9 @@
 <script lang="ts">
-  import type { ContainerInfo, ContainerAction, ContainerCreateInfo } from '$lib/types';
   import { onMount } from 'svelte';
+  import Icon from '@iconify/svelte';
   import { source } from 'sveltekit-sse';
   import { notifs, errors } from '$lib/client';
+  import type { ContainerInfo, ContainerAction, ContainerCreateInfo } from '$lib/types';
 
   export let data: {
     containers: ContainerInfo[]
@@ -149,14 +150,14 @@
 <span>{selection.length} selected.</span>
 <div class="mb-2">
   <div class="btngroup">
-    <button disabled={processing} class="bg-green text-crust nodefault" on:click={() => dialog.showModal()}>Create</button>
-    <button disabled={processing} class="bg-sapphire text-crust nodefault" on:click={pullImage}>Pull</button>
-    <button disabled={processing || selection.length === 0 || selection.filter(ct => ct.status !== 'running').length === 0} class="bg-red text-crust nodefault" on:click={() => doContainers('delete', true)}>Delete</button>
+    <button disabled={processing} class="bg-green text-crust nodefault" on:click={() => dialog.showModal()}><Icon icon="ic:sharp-add-circle-outline" /></button>
+    <button disabled={processing} class="bg-sapphire text-crust nodefault" on:click={pullImage}><Icon icon="ic:sharp-file-download" /></button>
+    <button disabled={processing || selection.length === 0 || selection.filter(ct => ct.status !== 'running').length === 0} class="bg-red text-crust nodefault" on:click={() => doContainers('delete', true)}><Icon icon="ic:sharp-delete" /></button>
   </div>
   <div class="btngroup">
-    <button disabled={processing || selection.length === 0 || selection.filter(ct => ct.status !== 'running').length === 0} class="text-green" on:click={() => doContainers('start')}>Start</button>
-    <button disabled={processing || selection.length === 0 || selection.filter(ct => ct.status === 'running').length === 0} class="text-red" on:click={() => doContainers('stop')}>Stop</button>
-    <button disabled={processing || selection.length === 0 || selection.filter(ct => ct.status === 'running').length === 0} class="text-yellow" on:click={() => doContainers('restart')}>Restart</button>
+    <button disabled={processing || selection.length === 0 || selection.filter(ct => ct.status !== 'running').length === 0} class="text-green" on:click={() => doContainers('start')}><Icon icon="ic:sharp-play-arrow" /></button>
+    <button disabled={processing || selection.length === 0 || selection.filter(ct => ct.status === 'running').length === 0} class="text-red" on:click={() => doContainers('stop')}><Icon icon="ic:sharp-stop" /></button>
+    <button disabled={processing || selection.length === 0 || selection.filter(ct => ct.status === 'running').length === 0} class="text-yellow" on:click={() => doContainers('restart')}><Icon icon="ic:sharp-restart-alt" /></button>
   </div>
 </div>
 <div class="overflow-x-auto"> 

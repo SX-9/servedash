@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { convertPermissions, errors, notifs, readableByteSize } from "$lib/client";
 	import type { dirContents } from "$lib/types";
+	import Icon from "@iconify/svelte";
 	import { onMount } from "svelte";
 
 	let cwd = "/";
@@ -147,13 +148,13 @@
 	{/if}
 </span><br>
 <div class="btngroup">
-	<button disabled={processing} on:click={refreshContents}>Refresh</button>
-	<button disabled={processing} class="nodefault text-crust bg-green" on:click={() => dialog.showModal()}>New</button>
+	<button disabled={processing} on:click={refreshContents}><Icon icon="ic:sharp-refresh" /></button>
+	<button disabled={processing} class="nodefault text-crust bg-green" on:click={() => dialog.showModal()}><Icon icon="ic:sharp-add-circle-outline" /></button>
 </div>
 <div class="btngroup">
-	<button disabled={processing || selection.length === 0} on:click={() => doFs('delete', true, false)} class="nodefault text-crust bg-red">Delete</button>
-	<button disabled={processing || selection.length === 0} on:click={() => doFs('copy', false, true)}>Copy</button>
-	<button disabled={processing || selection.length === 0} on:click={() => doFs('move', false, true)}>Move</button>
+	<button disabled={processing || selection.length === 0} on:click={() => doFs('delete', true, false)} class="nodefault text-crust bg-red"><Icon icon="ic:sharp-delete" /></button>
+	<button disabled={processing || selection.length === 0} on:click={() => doFs('copy', false, true)}><Icon icon="ic:sharp-copy-all" /></button>
+	<button disabled={processing || selection.length === 0} on:click={() => doFs('move', false, true)}><Icon icon="ic:sharp-drive-file-move" /></button>
 </div>
 <input type="checkbox" name="showHidden" bind:checked={showHidden}>
 <label for="showHidden">Show dotfiles</label>

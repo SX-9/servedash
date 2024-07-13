@@ -10,6 +10,7 @@ h1 { @apply text-3xl; }
 h2 { @apply text-2xl; }
 h3 { @apply text-xl; }
 li { @apply text-sm list-disc ml-6; }
+svg { @apply inline; }
 
 button a { @apply no-underline text-subtext1; }
 button:not(.nodefault) { @apply bg-surface1; }
@@ -46,6 +47,6 @@ nav a.active { @apply text-sapphire; }
 nav a.active svg { @apply h-6 sm:w-auto sm:h-auto sm:w-auto sm:h-auto; }
 nav a.active span { @apply text-xs sm:text-[1rem]; }
 nav a { @apply py-2 text-text no-underline flex flex-col sm:flex-row sm:gap-1 justify-center items-center; }
-nav a svg { @apply inline w-10 h-10 sm:w-auto sm:h-auto; }
+nav a svg { @apply w-10 h-10 sm:w-auto sm:h-auto; }
 nav a span { @apply text-[0] sm:text-[1rem]; }
 nav a * { @apply transition-all duration-200 ease-in-out; }
