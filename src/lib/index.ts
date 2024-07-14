@@ -1,22 +1,12 @@
 import type { ContainerAction, ContainerCreateInfo, ContainerInfo, ServerInfo, ServerInfoDetailed, Usage } from './types';
 import osu, { type NetStatMetrics } from 'node-os-utils';
 import { env } from '$env/dynamic/private';
-import { execSync } from 'child_process';
-import { EventEmitter } from 'events';
 import { readFileSync } from 'fs';
 import Docker from 'dockerode';
 import os from 'os';
+import type OsCmd from 'node-os-utils/lib/oscmd';
 
 export const docker = new Docker();
-
-export function shellExec(cmd: string) {
-  try {
-    return execSync(`sh -c ${cmd}`).toString('utf8');
-  } catch (e) {
-    console.error(e);
-    return '';
-  }
-}
 
 export function createContainer(ct: ContainerCreateInfo) {
   return docker.createContainer({
@@ -105,9 +95,10 @@ export async function getDetailedInfo(): Promise<ServerInfoDetailed> {
   }
 }
 
-export function getServerInfo(): ServerInfo {
+export async function getServerInfo(): Promise <ServerInfo> {
   return {
-    username: env.USER,
+    // ignore the typescript error
+    username: (await osu.osCmd.whoami()).trim(),
     hostname: osu.os.hostname(),
     uptime: osu.os.uptime(),
   };

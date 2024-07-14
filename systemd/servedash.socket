@@ -1,0 +1,10 @@
+[Unit]
+Description=ServeDash Socket
+
+[Socket]
+ListenStream=7098
+Accept=no
+NoDelay=true
+
+[Install]
+WantedBy=sockets.target

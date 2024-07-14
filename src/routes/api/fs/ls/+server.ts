@@ -11,7 +11,6 @@ export const POST: RequestHandler = async (e) => {
 	if (!fs.lstatSync(path).isDirectory()) return new Response('Path is not a directory', {status: 400});
 
 	try {
-		const files = fs.readdirSync(path);
 		const contents: dirContents[] = fs.readdirSync(path, { withFileTypes: true })
 			.map((dirent) => {
 				const stat = fs.statSync(`${path}/${dirent.name}`);

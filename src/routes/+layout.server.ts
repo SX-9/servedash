@@ -1,6 +1,6 @@
 import { getServerInfo } from "$lib";
 
 /** @type {import('./$types').LayoutLoad} */
-export function load() {
-	return getServerInfo();
+export async function load() {
+	return await getServerInfo();
 }

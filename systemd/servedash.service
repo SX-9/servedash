@@ -1,0 +1,19 @@
+[Unit]
+Description=Server Dashboard
+Documentation=https://github.com/SX-9/servedash
+After=network.target
+Requires=servedash.socket
+Requires=nginx.service
+
+[Service]
+WorkingDirectory=/
+ExecStart=/usr/bin/node /opt/servedash
+Restart=always
+Environment=NODE_ENV=production
+Environment=IDLE_TIMEOUT=3600
+Environment=PROTOCOL_HEADER=x-forwarded-proto
+Environment=HOST_HEADER=x-forwarded-host
+Environment=PORT_HEADER=x-forwarded-port
+
+[Install]
+WantedBy=multi-user.target

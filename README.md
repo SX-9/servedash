@@ -1,25 +1,13 @@
 # ServeDash
 a simple dashboard for servers
 
-## Building
+## Installation
+Requirements:
+- nodejs & npm (the server)
+- git (for cloning, alternatively you can download the repository)
+- nginx (for reverse proxy and authentication)
+
+Clone the repository and run the install script:
 ```bash
-npm run build
+sudo ./install.sh
 ```
-
-## Running
-_set environment variable DASH_PASS as its used for logging into the web dashboard_
-```bash
-npm run preview -- --host
-```
-
-open the address the command gave you and login with the password you set and the username being your server username
-
-<!-- 
-  todo:
-    server
-      1 systemd service unit file
-    pages
-      1 terminal
-      2 files
-      3 journal 
--->
