@@ -44,7 +44,7 @@ dialog { @apply text-text bg-surface0 p-4 mx-auto border-2 border-crust; }
 dialog::backdrop { @apply bg-crust opacity-50; }
 .linewrap { @apply whitespace-pre-wrap; }
 
-nav { @apply bg-mantle flex justify-evenly sm:justify-center items-center gap-2 sm:gap-6 fixed bottom-0 py-2 w-screen max-h-16 sm:m-0 sm:static sm:bg-transparent sm:w-auto sm:py-0; }
+nav { @apply z-10 sm:z-auto bg-mantle flex justify-evenly sm:justify-center items-center gap-2 sm:gap-6 fixed bottom-0 py-2 w-screen max-h-16 sm:m-0 sm:static sm:bg-transparent sm:w-auto sm:py-0; }
 nav a.active { @apply text-sapphire; }
 nav a.active svg { @apply h-6 sm:w-auto sm:h-auto; }
 nav a.active span { @apply text-xs sm:text-[1rem]; }

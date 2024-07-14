@@ -1,5 +1,6 @@
 <script lang="ts">
   import { errors, notifs, readableUptime } from "$lib/client";
+  import { fly } from 'svelte/transition'
   import Icon from '@iconify/svelte';
   import { page } from '$app/stores';
   import "../app.css";
@@ -44,9 +45,14 @@
     <a href="/shell" class:active={$page.url.pathname === '/shell'}><Icon icon="ic:sharp-terminal" /> <span>Shell</span></a>
   </nav>
 </header>
-<main>
-  <slot />
-</main>
-<footer class="mt-4 mb-20 sm:mb-auto flex justify-center items-center">
-  <p>made by <a href="https://satr14.is-a.dev">satr14</a></p>
-</footer>
+{#key data.url}
+  <main
+    in:fly={{ y: 50, duration: 300, delay: 300 }}
+    out:fly={{ y: 50, duration: 300 }}
+  >
+    <slot />
+  </main>
+  <footer class="mt-4 mb-20 sm:mb-auto flex justify-center items-center">
+    <p>made by <a href="https://satr14.is-a.dev">satr14</a></p>
+  </footer>
+{/key}
