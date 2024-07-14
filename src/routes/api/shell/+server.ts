@@ -8,7 +8,6 @@ const eventEmitter = new EventEmitter();
 export const PATCH: RequestHandler = async (e) => {
     const body = await e.request.text();
 		eventEmitter.emit('stdin', body + '\n');
-		console.log('stdin', body);
     return new Response();
 };
 
@@ -19,7 +18,6 @@ export const POST: RequestHandler = async () => {
 		shell: true,
 	});
 	eventEmitter.on('stdin', (data) => {
-		console.log('stdin', data);
 		shellProcess.stdin.write(data);
 	});
 

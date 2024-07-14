@@ -157,7 +157,7 @@
 	<button disabled={processing || selection.length === 0} on:click={() => doFs('move', false, true)}><Icon icon="ic:sharp-drive-file-move" /></button>
 </div>
 <input type="checkbox" name="showHidden" bind:checked={showHidden}>
-<label for="showHidden">Show dotfiles</label>
+<label for="showHidden" class="font-normal italic">Show dotfiles</label>
 <input class="my-2 w-full" disabled={processing} type="text" bind:value={cwd} on:keypress={(e) => {
 	if (e.key === "Enter") refreshContents();
 }}>
