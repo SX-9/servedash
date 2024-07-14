@@ -5,12 +5,16 @@
 	import { onMount } from "svelte";
 
 	let cwd = "/";
+	let editorName = '';
+	let editorBuffer = '';
 	let overwrite = false;
+	let editorWrap = false;
 	let processing = false;
 	let showHidden = false;
 	let uploadProgress = 0;
 	let indexProcessing = 0;
 	let dialog: HTMLDialogElement;
+	let editor: HTMLDialogElement;
 	let file: File | null = null;
 	let contents: dirContents[] = [];
 	let selection: dirContents[] = [];
@@ -34,7 +38,17 @@
 		if (!await refreshContents()) cwd = oldCwd;
 	}
 
-	async function openFile(item: string) {
+	async function openFile(item: string, edit?: boolean) {
+		if (edit) {
+			const res = await fetch(`/api/fs/file?path=${encodeURIComponent(cwd + "/" + item)}`);
+			if (!res.ok) return errors.set(`Failed to open file: ${res.status} ${res.statusText}`);
+			const text = await res.text();
+
+			editorBuffer = text;
+			editorName = item;
+			editor.showModal();
+			return;
+		}
 		if (!confirm('Download file?')) return;
 		window.open(`/api/fs/file?path=${encodeURIComponent(cwd + "/" + item)}`, "_blank");
 	}
@@ -51,7 +65,10 @@
 		});
 
 		if (!res.ok) errors.set(`Failed to list directory: ${res.status} ${res.statusText}`);
-		else contents = await res.json();
+		else {
+			contents = await res.json();
+			selection = [];
+		}
 
 		processing = false;
 		notifs.set("");
@@ -127,6 +144,36 @@
 		notifs.set("");
 		await refreshContents();
 	}
+	
+	async function renameFs() {
+		if (selection.length !== 1) return errors.set('Select a single item to rename.');
+		const item = selection[0];
+		const newName = prompt(`Enter the new name for ${item.name}:`, item.name);
+		if (!newName) return;
+		const res = await fetch(`/api/fs/action/move?path=${encodeURIComponent(cwd + "/" + item.name)}&dest=${encodeURIComponent(cwd + "/" + newName)}`, {
+			method: "POST",
+		});
+		if (!res.ok) errors.set(`Failed to rename ${item.name}: ${res.status} ${res.statusText}`);
+		else await refreshContents();
+	}
+
+	async function editorSave(event: Event) {
+		event.preventDefault();
+		notifs.set('DO NOT LEAVE THIS PAGE, Saving file...');
+		processing = true;
+		const res = await fetch(`/api/fs/write?path=${encodeURIComponent(cwd + "/" + editorName)}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "text/plain",
+			},
+			body: editorBuffer,
+		});
+		if (!res.ok) errors.set(`Failed to save file: ${res.status} ${res.statusText}`);
+		else {
+			editor.close();
+			await refreshContents();
+		}
+	}
 
 	onMount(() => {
 		window.onbeforeunload = (e) => {
@@ -155,6 +202,8 @@
 	<button disabled={processing || selection.length === 0} on:click={() => doFs('delete', true, false)} class="nodefault text-crust bg-red"><Icon icon="ic:sharp-delete" /></button>
 	<button disabled={processing || selection.length === 0} on:click={() => doFs('copy', false, true)}><Icon icon="ic:sharp-copy-all" /></button>
 	<button disabled={processing || selection.length === 0} on:click={() => doFs('move', false, true)}><Icon icon="ic:sharp-drive-file-move" /></button>
+	<button disabled={processing || selection.length !== 1} on:click={renameFs}><Icon icon="ic:sharp-drive-file-rename-outline" /></button>
+	<button disabled={processing || selection.length !== 1 || selection[0].type !== "file"} on:click={() => openFile(selection[0].name, true)}><Icon icon="ic:sharp-edit-note" /></button>
 </div>
 <input type="checkbox" name="showHidden" bind:checked={showHidden}>
 <label for="showHidden" class="font-normal italic">Show dotfiles</label>
@@ -206,6 +255,10 @@
 						case "dir": gotoDir("/"+item.name); break;
 						case "file": openFile(item.name); break;
 					}
+				}} on:contextmenu={(e) => {
+					e.preventDefault();
+					if (selection.includes(item)) selection = selection.filter((i) => i !== item);
+					else selection = [...selection, item];
 				}}>
 					{#if item.type === "dir"}
 						<div class="chips bg-yellow"></div>
@@ -267,5 +320,19 @@
 		</div>
 		<input class="m-0 ml-2" type="checkbox" bind:checked={overwrite} />
 		<label for="overwrite" class="font-normal italic">Overwrite existing file?</label>
+	</form>
+</dialog>
+<dialog bind:this={editor}>
+	<form on:submit={editorSave}>
+		<div class="btngroup">
+			<button class="nodefault text-crust bg-green" on:click={() => editor.close()}><Icon icon="ic:sharp-save" /></button>
+			<button class="nodefault text-crust bg-red" type="button" on:click={() => editor.close()}><Icon icon="ic:sharp-close" /></button>
+		</div>
+		<span class="text-subtext1 italic">{editorName}</span>
+		<input class="m-0 ml-2" type="checkbox" name="editorWrap" bind:checked={editorWrap} />
+		<label for="editorWrap" class="font-normal italic">Wrap text</label>
+		<div class="h-2"></div>
+		<textarea class="whitespace-nowrap w-full h-64 max-w-[calc(100vw-10rem)] max-h-[calc(100vh-10rem)]" class:linewrap={editorWrap} bind:value={editorBuffer}></textarea>
+		<div class="h-2"></div>
 	</form>
 </dialog>

@@ -33,14 +33,16 @@ hr { @apply my-1 border-solid border-overlay0; }
 th:has(input), td:has(input) { @apply text-center w-4; }
 
 label { @apply font-bold; }
+textarea { @apply resize; }
 input:focus { @apply outline-none; }
-input, select { @apply bg-surface0 accent-sapphire; }
-input:not([type="checkbox"]):not([type="radio"]), select { @apply block rounded-md p-1 bg-surface1 font-mono; }
+input, textarea, select { @apply bg-surface0 accent-sapphire focus:outline-none active:outline-none; }
+input:not([type="checkbox"]):not([type="radio"]), textarea, select { @apply block rounded-md p-1 bg-surface1 font-mono; }
 input[type="number"] { @apply [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none; }
 *[disabled] { @apply opacity-50 cursor-not-allowed; }
 dialog form input { @apply mt-1 mb-2; }
 dialog { @apply text-text bg-surface0 p-4 mx-auto border-2 border-crust; }
 dialog::backdrop { @apply bg-crust opacity-50; }
+.linewrap { @apply whitespace-pre-wrap; }
 
 nav { @apply bg-mantle flex justify-evenly sm:justify-center items-center gap-2 sm:gap-6 fixed bottom-0 py-2 w-screen max-h-16 sm:m-0 sm:static sm:bg-transparent sm:w-auto sm:py-0; }
 nav a.active { @apply text-sapphire; }
