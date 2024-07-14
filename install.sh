@@ -20,10 +20,11 @@ systemctl enable --now servedash.socket
 echo "Setting up Nginx..."
 [ -f "/etc/nginx/nginx.conf" ] && mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.old
 cp ./nginx.conf /etc/nginx/nginx.conf
-[ -d "/etc/nginx/.htpasswd" ] && mv /etc/nginx/.htpasswd /etc/nginx/.htpasswd.old
-echo "Enter a username:"
-read username
-htpasswd -c /etc/nginx/.htpasswd $username
+if [[ ! -f "/etc/nginx/.htpasswd" ]]; then
+  echo "Enter a username:"
+  read username
+  htpasswd -c /etc/nginx/.htpasswd $username
+fi
 systemctl restart nginx
 systemctl enable nginx
 
