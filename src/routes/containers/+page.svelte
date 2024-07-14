@@ -150,7 +150,7 @@
 <span>{selection.length} selected.</span>
 <div class="mb-2">
   <div class="btngroup">
-    <button disabled={processing} class="bg-green text-crust nodefault" on:click={() => dialog.showModal()}><Icon icon="ic:sharp-add-circle-outline" /></button>
+    <button disabled={processing} class="bg-green text-crust nodefault" on:click={() => dialog.showModal()}><Icon icon="ic:sharp-add" /></button>
     <button disabled={processing} class="bg-sapphire text-crust nodefault" on:click={pullImage}><Icon icon="ic:sharp-file-download" /></button>
     <button disabled={processing || selection.length === 0 || selection.filter(ct => ct.status !== 'running').length === 0} class="bg-red text-crust nodefault" on:click={() => doContainers('delete', true)}><Icon icon="ic:sharp-delete" /></button>
   </div>
@@ -220,7 +220,7 @@
       <option value="on-failure">On Failure</option>
     </select>
     <label for="ports">Port Mappings</label>
-    <button disabled={processing} type="button" class="mt-2 text-green text-xs" on:click={formMethods.addPortMapping}>Add</button>
+    <button disabled={processing} type="button" class="mt-2 text-green text-xs" on:click={formMethods.addPortMapping}><Icon icon="ic:sharp-add" /></button>
     {#each dialogValues.ports as _, index (index)}
       <div class="flex items-center mt-2">
         <input disabled={processing} type="number" placeholder="public" name="public" required bind:value={dialogValues.ports[index].public} class="mr-1 w-[4em]">
@@ -231,43 +231,44 @@
           <option value="tcp">TCP</option>
           <option value="udp">UDP</option>
         </select>
-        <button disabled={processing} type="button" class="ml-2 text-red text-xs" on:click={() => formMethods.removePortMapping(index)}>Remove</button>
+        <button disabled={processing} type="button" class="ml-2 text-red text-xs" on:click={() => formMethods.removePortMapping(index)}><Icon icon="ic:sharp-delete" /></button>
       </div>
     {/each}
     <div></div>
     <label for="volumes">Volume Mappings</label>
-    <button disabled={processing} type="button" class="mt-2 text-green text-xs" on:click={formMethods.addVolumeMapping}>Add</button>
+    <button disabled={processing} type="button" class="mt-2 text-green text-xs" on:click={formMethods.addVolumeMapping}><Icon icon="ic:sharp-add" /></button>
     {#each dialogValues.volumes as _, index (index)}
       <div class="flex items-center mt-2">
         <input disabled={processing} type="text" placeholder="host" name="host" required bind:value={dialogValues.volumes[index].host} class="mr-2 w-[6em]">
         <span>:</span>
         <input disabled={processing} type="text" placeholder="container" name="container" required bind:value={dialogValues.volumes[index].container} class="ml-2 w-[6em]">
-        <button disabled={processing} type="button" class="ml-2 text-red text-xs" on:click={() => formMethods.removeVolumeMapping(index)}>Remove</button>
+        <button disabled={processing} type="button" class="ml-2 text-red text-xs" on:click={() => formMethods.removeVolumeMapping(index)}><Icon icon="ic:sharp-delete" /></button>
       </div>
     {/each}
     <div></div>
     <label for="env">Environment Variables</label>
-    <button disabled={processing} type="button" class="mt-2 text-green text-xs" on:click={formMethods.addEnvVariable}>Add</button>
+    <button disabled={processing} type="button" class="mt-2 text-green text-xs" on:click={formMethods.addEnvVariable}><Icon icon="ic:sharp-add" /></button>
     {#each dialogValues.env as _, index (index)}
       <div class="flex items-center mt-2">
         <input disabled={processing} type="text" placeholder="key" name="key" required bind:value={dialogValues.env[index].key} class="mr-2 w-[6em]">
         <span>=</span>
         <input disabled={processing} type="text" placeholder="value" name="value" required bind:value={dialogValues.env[index].value} class="ml-2 w-[6em]">
-        <button disabled={processing} type="button" class="ml-2 text-red text-xs" on:click={() => formMethods.removeEnvVariable(index)}>Remove</button>
+        <button disabled={processing} type="button" class="ml-2 text-red text-xs" on:click={() => formMethods.removeEnvVariable(index)}><Icon icon="ic:sharp-delete" /></button>
       </div>
     {/each}
     <div></div>
     <label for="cmdline">Command Line Arguments</label>
-    <button disabled={processing} type="button" class="mt-2 text-green text-xs" on:click={formMethods.addCmdArg}>Add</button>
+    <button disabled={processing} type="button" class="mt-2 text-green text-xs" on:click={formMethods.addCmdArg}><Icon icon="ic:sharp-add" /></button>
     {#each dialogValues.cmdline as _, index (index)}
       <div class="flex items-center mt-2">
         <input disabled={processing} type="text" placeholder="arg" name="arg" required bind:value={dialogValues.cmdline[index]} class="w-[13em]">
-        <button disabled={processing} type="button" class="ml-2 text-red text-xs" on:click={() => formMethods.removeCmdArg(index)}>Remove</button>
+        <button disabled={processing} type="button" class="ml-2 text-red text-xs" on:click={() => formMethods.removeCmdArg(index)}><Icon icon="ic:sharp-delete" /></button>
       </div>
     {/each}
-    <div class="btngroup mt-4">
-      <button disabled={processing} class="nodefault bg-green text-crust" type="submit">Create</button>
-      <button disabled={processing} class="nodefault bg-red text-crust" type="button" on:click={() => dialog.close()}>Close</button>
+    <div></div>
+    <div class="btngroup mt-2 text-xl">
+      <button disabled={processing} class="nodefault bg-green text-crust" type="submit"><Icon icon="ic:sharp-check" /></button>
+      <button disabled={processing} class="nodefault bg-red text-crust" type="button" on:click={() => dialog.close()}><Icon icon="ic:sharp-close" /></button>
     </div>
   </form>
   <p class="italic text-subtext0 mt-2">

@@ -149,7 +149,7 @@
 </span><br>
 <div class="btngroup">
 	<button disabled={processing} on:click={refreshContents}><Icon icon="ic:sharp-refresh" /></button>
-	<button disabled={processing} class="nodefault text-crust bg-green" on:click={() => dialog.showModal()}><Icon icon="ic:sharp-add-circle-outline" /></button>
+	<button disabled={processing} class="nodefault text-crust bg-green" on:click={() => dialog.showModal()}><Icon icon="ic:sharp-add" /></button>
 </div>
 <div class="btngroup">
 	<button disabled={processing || selection.length === 0} on:click={() => doFs('delete', true, false)} class="nodefault text-crust bg-red"><Icon icon="ic:sharp-delete" /></button>
@@ -260,10 +260,10 @@
 		<label for="file">Select a file to upload:</label>
 		<input class="mb-1" name="file "type="file" on:change={handleFileChange} required />
 		<div></div>
-		<div class="h-4"></div>
+		<div class="h-2"></div>
 		<div class="btngroup">
-			<button type="submit" class="nodefault text-crust bg-green">Upload</button>
-			<button type="button" class="nodefault text-crust bg-red" on:click={() => dialog.close()}>Cancel</button>
+			<button type="submit" class="nodefault text-crust bg-green"><Icon icon="ic:sharp-upload" /></button>
+			<button type="button" class="nodefault text-crust bg-red" on:click={() => dialog.close()}><Icon icon="ic:sharp-close" /></button>
 		</div>
 		<input class="m-0 ml-2" type="checkbox" bind:checked={overwrite} />
 		<label for="overwrite" class="font-normal italic">Overwrite existing file?</label>
