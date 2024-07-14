@@ -17,7 +17,7 @@
   });
 </script>
 
-<div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-2">
+<div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 my-2">
   <div class="card">
     <h2 class="mb-2">System</h2>
     <p>
