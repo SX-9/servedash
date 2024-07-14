@@ -21,7 +21,9 @@ echo "Setting up Nginx..."
 [ -f "/etc/nginx/nginx.conf" ] && mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.old
 cp ./nginx.conf /etc/nginx/nginx.conf
 [ -d "/etc/nginx/.htpasswd" ] && mv /etc/nginx/.htpasswd /etc/nginx/.htpasswd.old
-htpasswd -c /etc/nginx/.htpasswd admin
+echo "Enter a username:"
+read username
+htpasswd -c /etc/nginx/.htpasswd $username
 systemctl restart nginx
 systemctl enable nginx
 
@@ -29,4 +31,4 @@ echo "Installation Complete!"
 echo "Files: /opt/servedash"
 echo "Service: servedash.socket"
 echo "Dashboard (nginx proxy): http://localhost:8197"
-echo "Login with your username "admin" and the password you set"
+echo "Login with your username and the password you set"
