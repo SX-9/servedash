@@ -15,6 +15,7 @@ Environment=PROTOCOL_HEADER=x-forwarded-proto
 Environment=HOST_HEADER=x-forwarded-host
 Environment=PORT_HEADER=x-forwarded-port
 Environment=SHUTDOWN_TIMEOUT=10
+Environment=BODY_SIZE_LIMIT=Infinity
 
 [Install]
 WantedBy=multi-user.target
