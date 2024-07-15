@@ -28,7 +28,7 @@
   </title>
 </svelte:head>
 <header class="mb-4 lg:flex lg:flex-row lg:justify-between lg:items-center">
-  <h3 class="text-subtext0 italic sm:mb-1">
+  <h3 class="text-subtext0 text-center italic sm:mb-1">
     {message
       ? message
       : displaySwitch
