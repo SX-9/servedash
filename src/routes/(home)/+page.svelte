@@ -47,19 +47,17 @@
     Nothing here. (try editing the config file: /etc/servedash/config.json)<br>
     The config file should be an array of objects with the following properties:
   </p>
-  <pre>
-    {JSON.stringify({
-      "name": "Name of the link",
-      "icon": "URL to the icon",
-      "desc": "Description of the link (optional)",
-      "URLlink": {
-        "prot": "http or https",
-        "host": "example.com",
-        "port": 80,
-        "path": "/path/to/page"
-      }
-    })}
-  </pre>
+  <pre>{JSON.stringify({
+    "name": "Name of the link",
+    "icon": "URL to the icon",
+    "desc": "Description of the link (optional)",
+    "URLlink": {
+      "prot": "http or https",
+      "host": "example.com",
+      "port": 80,
+      "path": "/path/to/page"
+    }
+  }, null, 2)}</pre>
 {:else}
   <p class="text-center text-subtext0 italic">Edit links at: /etc/servedash/config.json</p>
 {/if}
