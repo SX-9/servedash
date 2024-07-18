@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { convertPermissions, errors, notifs, readableByteSize } from "$lib/client";
+	import { convertPermissions, errors, initTextarea, notifs, readableByteSize } from "$lib/client";
 	import type { dirContents } from "$lib/types";
 	import Icon from "@iconify/svelte";
 	import { onMount } from "svelte";
@@ -13,12 +13,13 @@
 	let showHidden = false;
 	let uploadProgress = 0;
 	let indexProcessing = 0;
+	let file: File | null = null;
 	let dialog: HTMLDialogElement;
 	let editor: HTMLDialogElement;
-	let file: File | null = null;
 	let contents: dirContents[] = [];
 	let selection: dirContents[] = [];
-
+	let editorElement: HTMLTextAreaElement;
+	
 	function toggleAll(e: Event) {
 		selection = (e.target as HTMLInputElement).checked ? contents : [];
 	}
@@ -181,6 +182,7 @@
 			e.preventDefault();
 		};
 		refreshContents();
+		initTextarea(editorElement);
 	});
 </script>
 
@@ -324,15 +326,19 @@
 </dialog>
 <dialog bind:this={editor}>
 	<form on:submit={editorSave}>
-		<div class="btngroup">
-			<button class="nodefault text-crust bg-green" on:click={() => editor.close()}><Icon icon="ic:sharp-save" /></button>
-			<button class="nodefault text-crust bg-red" type="button" on:click={() => editor.close()}><Icon icon="ic:sharp-close" /></button>
+		<div class="flex justify-between">
+			<div class="btngroup">
+				<button class="nodefault text-crust bg-green" on:click={() => editor.close()}><Icon icon="ic:sharp-save" /></button>
+				<button class="nodefault text-crust bg-red" type="button" on:click={() => editor.close()}><Icon icon="ic:sharp-close" /></button>
+			</div>
+			<span class="text-subtext1 italic">{editorName}</span>
+			<div>
+				<input class="m-0 ml-2" type="checkbox" name="editorWrap" bind:checked={editorWrap} />
+				<label for="editorWrap" class="font-normal italic">Wrap text</label>
+			</div>
 		</div>
-		<span class="text-subtext1 italic">{editorName}</span>
-		<input class="m-0 ml-2" type="checkbox" name="editorWrap" bind:checked={editorWrap} />
-		<label for="editorWrap" class="font-normal italic">Wrap text</label>
 		<div class="h-2"></div>
-		<textarea class="whitespace-nowrap w-full h-64 max-w-[calc(100vw-10rem)] max-h-[calc(100vh-10rem)]" class:linewrap={editorWrap} bind:value={editorBuffer}></textarea>
+		<textarea class="whitespace-nowrap w-[calc(100vw-10rem)] h-[calc(100vh-10rem)]" class:linewrap={editorWrap} bind:this={editorElement} bind:value={editorBuffer}></textarea>
 		<div class="h-2"></div>
 	</form>
 </dialog>

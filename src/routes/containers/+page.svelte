@@ -78,7 +78,7 @@
     try {
       const msgData = JSON.parse(msg);
       if (['create', 'destroy'].includes(msgData.Action)) return window.location.reload();
-      if (!['start', 'stop', 'restart'].includes(msgData.Action)) return;
+      if (!['start', 'stop', 'restart', 'kill'].includes(msgData.Action)) return;
       const parsedMsg = {
         action: msgData?.Action,
         id: msgData?.id,

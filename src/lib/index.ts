@@ -1,12 +1,17 @@
 import type { ContainerAction, ContainerCreateInfo, ContainerInfo, ServerInfo, ServerInfoDetailed, Usage } from './types';
 import osu, { type NetStatMetrics } from 'node-os-utils';
-import { env } from '$env/dynamic/private';
 import { readFileSync } from 'fs';
 import Docker from 'dockerode';
+import net from 'net';
 import os from 'os';
-import type OsCmd from 'node-os-utils/lib/oscmd';
 
 export const docker = new Docker();
+
+export function delay(milliseconds: number) {
+  return new Promise(function run(resolve) {
+    setTimeout(resolve, milliseconds)
+  })
+}
 
 export function createContainer(ct: ContainerCreateInfo) {
   return docker.createContainer({

@@ -10,12 +10,13 @@ WorkingDirectory=/
 ExecStart=/usr/bin/node /opt/servedash
 Restart=always
 Environment=NODE_ENV=production
-Environment=IDLE_TIMEOUT=3600
+# Environment=IDLE_TIMEOUT=3600
 Environment=PROTOCOL_HEADER=x-forwarded-proto
 Environment=HOST_HEADER=x-forwarded-host
 Environment=PORT_HEADER=x-forwarded-port
 Environment=SHUTDOWN_TIMEOUT=10
 Environment=BODY_SIZE_LIMIT=Infinity
+# Environment=CONFIGURATION_PATH={{ installation_config_path }}
 
 [Install]
 WantedBy=multi-user.target

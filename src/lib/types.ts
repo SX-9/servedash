@@ -1,6 +1,18 @@
 import osu from 'node-os-utils';
 import os from 'os';
 
+export type LinkItem = {
+  name: string,
+  URLlink: {
+    prot: 'http' | 'https',
+    host?: string,
+    port: number,
+    path: string,
+  },
+  desc?: string,
+  icon?: string,
+}
+
 export type dirContents = {
   name: string,
   mask: string,

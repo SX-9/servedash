@@ -33,6 +33,7 @@
 	"type": "module",
 	"dependencies": {
 		"dockerode": "^4.0.2",
-		"node-os-utils": "^1.3.7"
+		"node-os-utils": "^1.3.7",
+		"svelte-persisted-store": "^0.11.0"
 	}
 }

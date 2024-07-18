@@ -1,7 +1,43 @@
 import { writable } from 'svelte/store';
+import type { LinkItem } from './types';
 
 export const notifs = writable('');
 export const errors = writable('');
+
+export const keymap: {[key: string]: {value: string, pos: number}} = {
+  '<': {value: '<>', pos: 1},
+  '(': {value: '()', pos: 1},
+  '{': {value: '{}', pos: 1},
+  '[': {value: '[]', pos: 1},
+  '\'': {value: '\'\'', pos: 1},
+  '"': {value: '""', pos: 1},
+  '`': {value: '``', pos: 1},
+};
+
+export function toUrl({ URLlink }: LinkItem) {
+  return URLlink.prot + '://' + (URLlink.host || window.location.hostname) + (URLlink.port ? ':' + URLlink.port : '') + URLlink.path;
+}
+
+export function initTextarea(editing: HTMLTextAreaElement) {
+  editing.addEventListener('keydown', event => {
+    if (keymap[event.key]) {
+      event.preventDefault();
+      const pos = editing.selectionStart;
+      editing.value = editing.value.slice(0, pos) 
+        + keymap[event.key].value 
+        + editing.value.slice(editing.selectionEnd);
+
+      editing.selectionStart = editing.selectionEnd = pos + keymap[event.key].pos;
+    } else if (event.key === 'Tab') {
+      event.preventDefault();
+      const pos = editing.selectionStart;
+      editing.value = editing.value.slice(0, pos) + 
+        '    ' + editing.value.slice(editing.selectionEnd);
+      
+      editing.selectionStart = editing.selectionEnd = pos + 4;
+    }
+  });
+}
 
 export function readableUptime(seconds: number) {
   let days: number = Math.floor(seconds / 86400);
