@@ -53,7 +53,7 @@
     "desc": "Description of the link (optional)",
     "URLlink": {
       "prot": "http or https",
-      "host": "example.com",
+      "host": "example.com (leave empty for the current domain)",
       "port": 80,
       "path": "/path/to/page"
     }
