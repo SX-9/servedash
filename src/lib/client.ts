@@ -15,28 +15,30 @@ export const keymap: {[key: string]: {value: string, pos: number}} = {
 };
 
 export function toUrl({ URLlink }: LinkItem) {
-  return URLlink.prot + '://' + (URLlink.host || window.location.hostname) + (URLlink.port ? ':' + URLlink.port : '') + URLlink.path;
+  return (URLlink.prot || 'http') + '://' + (URLlink.host || window.location.hostname) + (URLlink.port ? ':' + URLlink.port : '') + URLlink.path;
 }
 
 export function initTextarea(editing: HTMLTextAreaElement) {
-  editing.addEventListener('keydown', event => {
-    if (keymap[event.key]) {
-      event.preventDefault();
+  editing.addEventListener('input', event => {
       const pos = editing.selectionStart;
-      editing.value = editing.value.slice(0, pos) 
-        + keymap[event.key].value 
-        + editing.value.slice(editing.selectionEnd);
-
-      editing.selectionStart = editing.selectionEnd = pos + keymap[event.key].pos;
-    } else if (event.key === 'Tab') {
-      event.preventDefault();
-      const pos = editing.selectionStart;
-      editing.value = editing.value.slice(0, pos) + 
-        '    ' + editing.value.slice(editing.selectionEnd);
-      
-      editing.selectionStart = editing.selectionEnd = pos + 4;
-    }
-  });
+      const value = editing.value;
+      const key = value.charAt(pos - 1);
+  
+      if (keymap[key]) {
+        event.preventDefault();
+        editing.value = value.slice(0, pos - 1) 
+          + keymap[key].value 
+          + value.slice(pos);
+  
+        editing.selectionStart = editing.selectionEnd = pos + keymap[key].pos;
+      } else if (key === 'Tab') {
+        event.preventDefault();
+        editing.value = value.slice(0, pos) + 
+          '    ' + value.slice(pos);
+        
+        editing.selectionStart = editing.selectionEnd = pos + 4;
+      }
+    });
 }
 
 export function readableUptime(seconds: number) {

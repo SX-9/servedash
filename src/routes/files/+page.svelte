@@ -6,6 +6,8 @@
 
 	let cwd = "/";
 	let editorName = '';
+	let editorPosLn = 0;
+	let editorPosCol = 0;
 	let editorBuffer = '';
 	let overwrite = false;
 	let editorWrap = false;
@@ -176,6 +178,12 @@
 		}
 	}
 
+	function editorSetPos() {
+		const pos = editorElement.selectionStart;
+		editorPosLn = editorBuffer.substr(0, pos).split("\n").length;
+		editorPosCol = pos - editorBuffer.lastIndexOf("\n", pos - 1);
+	}
+
 	onMount(() => {
 		window.onbeforeunload = (e) => {
 			if (!processing) return;
@@ -331,14 +339,17 @@
 				<button class="nodefault text-crust bg-green" on:click={() => editor.close()}><Icon icon="ic:sharp-save" /></button>
 				<button class="nodefault text-crust bg-red" type="button" on:click={() => editor.close()}><Icon icon="ic:sharp-close" /></button>
 			</div>
-			<span class="text-subtext1 italic">{editorName}</span>
+			<span class="text-subtext1 italic">{editorName}:{editorPosLn}:{editorPosCol}</span>
 			<div>
 				<input class="m-0 ml-2" type="checkbox" name="editorWrap" bind:checked={editorWrap} />
 				<label for="editorWrap" class="font-normal italic">Wrap text</label>
 			</div>
 		</div>
 		<div class="h-2"></div>
-		<textarea class="whitespace-nowrap w-[calc(100vw-10rem)] h-[calc(100vh-10rem)]" class:linewrap={editorWrap} bind:this={editorElement} bind:value={editorBuffer}></textarea>
+		<textarea class="whitespace-nowrap w-[calc(100vw-10rem)] h-[calc(100vh-10rem)]" class:linewrap={editorWrap}
+			bind:this={editorElement} bind:value={editorBuffer}
+			on:keyup={editorSetPos} on:touchend={editorSetPos} on:mouseup={editorSetPos} on:scroll={editorSetPos}
+		></textarea>
 		<div class="h-2"></div>
 	</form>
 </dialog>

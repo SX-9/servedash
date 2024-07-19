@@ -18,7 +18,9 @@ button { @apply px-2 py-1 rounded-2xl; }
 progress.warn { @apply bar-full:bg-yellow; }
 
 div.chips { @apply rounded-2xl text-sm px-1.5 py-0.5 m-0.5 w-fit inline-block text-crust; }
-div.card { @apply bg-base p-4 m-1; }
+@layer base {
+  div.card { @apply bg-base p-4 m-1; }
+}
 .btngroup { @apply inline-flex rounded-lg; }
 .btngroup button { @apply inline-flex rounded-none first:rounded-s-2xl first:ms-0 last:rounded-e-2xl border border-crust; }
 span.online { @apply text-green; }
