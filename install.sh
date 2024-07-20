@@ -54,11 +54,11 @@ main() {
   CONFIGURATION_PATH="/etc/servedash"
 
   check_root
-  install_servedash_files
-  install_servedash_services
+  install_files
+  install_services
   setup_nginx
-  create_configuration_directory
-  start_servedash_services
+  create_configuration
+  start_services
 
   echo "Installation Complete!"
   echo "Files: /opt/servedash"
