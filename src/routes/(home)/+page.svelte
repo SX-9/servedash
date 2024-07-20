@@ -48,9 +48,9 @@
   }], null, 2)}</pre>
 {:else}
   <div class="lg:h-[calc(100vh-10rem)] min-h-fit grid place-items-center w-full">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:p-16 my-2 gap-2 w-full">
+    <div class="flex flex-wrap justify-center items-center my-2 gap-2 w-full">
       {#each config as item, i}
-        <div class="card flex items-center h-fit w-full gap-2 px-2">
+        <div class="card w-full sm:w-[40%] lg:w-[24%] xl:w-1/5 flex items-center h-fit gap-2 px-2">
           {#if item.icon}
             <a href={toUrl(item)} target="_blank">
               <img class="size-12 rounded-xl" src={item.icon} alt={item.desc}>

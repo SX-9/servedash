@@ -2,8 +2,8 @@ import type { ContainerAction, ContainerCreateInfo, ContainerInfo, ServerInfo, S
 import osu, { type NetStatMetrics } from 'node-os-utils';
 import { readFileSync } from 'fs';
 import Docker from 'dockerode';
-import net from 'net';
 import os from 'os';
+import type OsCmd from 'node-os-utils/lib/oscmd';
 
 export const docker = new Docker();
 
@@ -103,7 +103,7 @@ export async function getDetailedInfo(): Promise<ServerInfoDetailed> {
 export async function getServerInfo(): Promise <ServerInfo> {
   return {
     // ignore the typescript error
-    username: (await osu.osCmd.whoami()).trim(),
+    username: (await (osu?.osCmd as OsCmd).whoami()).trim(),
     hostname: osu.os.hostname(),
     uptime: osu.os.uptime(),
   };
