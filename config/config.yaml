@@ -1,0 +1,35 @@
+- name: example1
+  desc: lorem ipsum
+  icon: /favicon.png # optional: web path to icon
+  container: portainer # optional: for status checks
+  URLlink:
+    prot: https # or http
+    host: example.com # leave empty for the server address
+    port: 443
+    path: /
+
+# 3 more examples:
+
+- name: example2
+  icon: /favicon.png
+  URLlink:
+    prot: https
+    host: ""
+    port: 80
+    path: /
+
+- name: example3
+  desc: lorem ipsum
+  URLlink:
+    prot: https
+    host: example.com
+    port: 443
+
+- name: example4
+  desc: lorem ipsum
+  icon: /favicon.png
+  container: none
+  URLlink:
+    prot: https
+    host: example.com
+    port: 443

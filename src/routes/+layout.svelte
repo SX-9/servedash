@@ -5,10 +5,9 @@
   import { page } from '$app/stores';
   import "../app.css";
   
-  let path;
+  export let data;
   let displaySwitch: boolean = false;
   let message: string, err = "";
-  export let data;
 
   notifs.subscribe((msg) => message = msg);
   errors.subscribe((error) => {
@@ -18,8 +17,6 @@
   
   setInterval(() => displaySwitch = !displaySwitch, 2500);
   setInterval(() => data.uptime++, 1000);
-  
-  $: path = $page.url.pathname;
 </script>
 
 <svelte:head>

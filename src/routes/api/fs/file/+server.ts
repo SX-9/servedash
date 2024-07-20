@@ -1,6 +1,6 @@
 import type { RequestHandler } from './$types';
-import fs from 'fs';
 import path from 'path';
+import fs from 'fs';
 
 export const GET: RequestHandler = async (e) => {
     const path = e.url.searchParams.get('path');

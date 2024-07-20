@@ -26,10 +26,13 @@ cp ./nginx.conf /etc/nginx/nginx.conf
 echo "Creating configuration directory..."
 [ ! -d "$CONFIGURATION_PATH" ] && mkdir -p $CONFIGURATION_PATH
 if [[ ! -f "$CONFIGURATION_PATH/htpasswd" ]]; then
-  echo "Enter a username:"
+  echo -n "Enter a username: "
   read username
   htpasswd -c $CONFIGURATION_PATH/htpasswd $username
 fi
+cp -nf ./config/* $CONFIGURATION_PATH
+chmod 666 $CONFIGURATION_PATH/config.yaml $CONFIGURATION_PATH/theme.yaml
+chmod 644 $CONFIGURATION_PATH/htpasswd
 
 echo "Starting ServeDash services..."
 systemctl daemon-reload

@@ -29,7 +29,7 @@
 </script>
 
 
-{#if config.length === 0}
+{#if config?.length === 0}
   <p class="text-center italic">
     Nothing here. (try editing the config file: /etc/servedash/config.yaml)<br>
     The config file should be an array of objects that will look like this:
@@ -51,9 +51,11 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:p-16 my-2 gap-2 w-full">
       {#each config as item, i}
         <div class="card flex items-center h-fit w-full gap-2 px-2">
-          <a href={toUrl(item)} target="_blank">
-            <img class="size-12 rounded-xl" src={item.icon} alt={item.desc}>
-          </a>
+          {#if item.icon}
+            <a href={toUrl(item)} target="_blank">
+              <img class="size-12 rounded-xl" src={item.icon} alt={item.desc}>
+            </a>
+          {/if}
           <div class="flex-1">
             <h3><a href={toUrl(item)} target="_blank">{item.name}</a></h3>
             {#if item.desc}
