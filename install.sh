@@ -11,6 +11,7 @@ check_root() {
 
 install_servedash_files() {
   echo "Installing ServeDash files..."
+  [ ! -d "./node_modules" ] && npm install
   [ ! -d "./build" ] && npx vite build
   [ ! -d "/opt/servedash" ] && mkdir -p $INSTALLATION_PATH
   rm -rf $INSTALLATION_PATH/*
