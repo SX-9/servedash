@@ -9,6 +9,7 @@ Requires=nginx.service
 WorkingDirectory=/
 ExecStart=/usr/bin/node /opt/servedash
 Restart=always
+TimeoutStopSec=10
 Environment=NODE_ENV=production
 # Environment=IDLE_TIMEOUT=3600
 Environment=PROTOCOL_HEADER=x-forwarded-proto

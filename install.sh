@@ -9,7 +9,7 @@ check_root() {
   fi
 }
 
-install_servedash_files() {
+install_files() {
   echo "Installing ServeDash files..."
   [ ! -d "./node_modules" ] && npm install
   [ ! -d "./build" ] && npx vite build
@@ -18,7 +18,7 @@ install_servedash_files() {
   cp -r ./package.json ./package-lock.json ./node_modules ./build/* $INSTALLATION_PATH
 }
 
-install_servedash_services() {
+install_services() {
   echo "Installing ServeDash services..."
   cp ./systemd/* /etc/systemd/system
 }
@@ -29,7 +29,7 @@ setup_nginx() {
   cp ./nginx.conf /etc/nginx/nginx.conf
 }
 
-create_configuration_directory() {
+create_configuration() {
   echo "Creating configuration directory..."
   [ ! -d "$CONFIGURATION_PATH" ] && mkdir -p $CONFIGURATION_PATH
   if [[ ! -f "$CONFIGURATION_PATH/htpasswd" ]]; then
@@ -42,7 +42,7 @@ create_configuration_directory() {
   chmod 644 $CONFIGURATION_PATH/htpasswd
 }
 
-start_servedash_services() {
+start_services() {
   echo "Starting ServeDash services..."
   systemctl daemon-reload
   systemctl enable --now servedash.socket nginx
