@@ -10,6 +10,7 @@ export const GET: RequestHandler = async (e) => {
         const file = fs.readFileSync(path);
         return new Response(file, {
             headers: {
+                'Content-Type': 'application/octet-stream',
                 'Content-Disposition': `attachment; filename=${path.split('/').pop()}`
             }
         });

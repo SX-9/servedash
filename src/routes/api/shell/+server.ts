@@ -32,10 +32,7 @@ export const POST: RequestHandler = async () => {
 		});
 		shellProcess.on('exit', () => shellProcess = childProcess.spawn('sh'));
 		shellProcess.stdin.write('cat /etc/motd\n');
-	}, {
-		ping: 500,
-		stop() {
-			if (!shellProcess.kill()) shellProcess.kill('SIGKILL');
-		}
+
+		return () => {if (!shellProcess.kill()) shellProcess.kill('SIGKILL');}
 	});
 };

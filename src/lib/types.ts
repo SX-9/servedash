@@ -9,6 +9,7 @@ export type LinkItem = {
     port: number,
     path: string,
   },
+  container?: string,
   desc?: string,
   icon?: string,
 }

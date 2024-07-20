@@ -14,15 +14,15 @@ export const keymap: {[key: string]: {value: string, pos: number}} = {
   '`': {value: '``', pos: 1},
 };
 
-export function toUrl({ URLlink }: LinkItem) {
-  return (URLlink.prot || 'http') + '://' + (URLlink.host || window.location.hostname) + (URLlink.port ? ':' + URLlink.port : '') + URLlink.path;
+export function toUrl({ URLlink }: LinkItem, localhost: boolean = false) {
+  return (URLlink.prot || 'http') + '://' + (URLlink.host || (localhost ? '127.0.0.1' : window?.location?.hostname)) + (URLlink.port ? ':' + URLlink.port : '') + URLlink.path;
 }
 
 export function initTextarea(editing: HTMLTextAreaElement) {
-  editing.addEventListener('input', event => {
+  editing.addEventListener('keydown', event => {
       const pos = editing.selectionStart;
       const value = editing.value;
-      const key = value.charAt(pos - 1);
+      const key = event.key;
   
       if (keymap[key]) {
         event.preventDefault();
@@ -34,9 +34,9 @@ export function initTextarea(editing: HTMLTextAreaElement) {
       } else if (key === 'Tab') {
         event.preventDefault();
         editing.value = value.slice(0, pos) + 
-          '    ' + value.slice(pos);
+          '  ' + value.slice(pos);
         
-        editing.selectionStart = editing.selectionEnd = pos + 4;
+        editing.selectionStart = editing.selectionEnd = pos + 2;
       }
     });
 }
