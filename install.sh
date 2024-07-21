@@ -38,7 +38,8 @@ create_configuration() {
     htpasswd -c $CONFIGURATION_PATH/htpasswd $username
   fi
   cp -n ./config/* $CONFIGURATION_PATH
-  chmod 666 $CONFIGURATION_PATH/config.yaml $CONFIGURATION_PATH/theme.yaml
+  touch $CONFIGURATION_PATH/config.yaml
+  chmod 666 $CONFIGURATION_PATH/config.yaml
   chmod 644 $CONFIGURATION_PATH/htpasswd
 }
 
