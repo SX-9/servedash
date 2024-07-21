@@ -38,7 +38,7 @@
 <form on:submit={submitHandler}>
 	<input class="w-full" type="text" placeholder="cat /etc/motd" bind:value={cmd}>
 	<div class="mt-1 btngroup text-xl">
-		<button type="submit" class="nodefault text-crust bg-green"><Icon icon="ic:sharp-send" /></button>
+		<button type="submit" class="nodefault text-crust bg-green"><Icon icon="ic:sharp-transit-enterexit" /></button>
 		<button type="button" on:click={() => output = ''}><Icon icon="ic:sharp-clear-all" /></button>
 		<button type="button" on:click={scrollToBottom}><Icon icon="ic:sharp-vertical-align-bottom" /></button>
 	</div>

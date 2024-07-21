@@ -271,17 +271,17 @@
 					else selection = [...selection, item];
 				}}>
 					{#if item.type === "dir"}
-						<div class="chips bg-yellow"></div>
+						<span class="text-yellow"><Icon icon="ic:sharp-folder" /></span>
 					{:else if item.type === "file"}
-						<div class="chips bg-green"></div>
+						<span class="text-green"><Icon icon="ic:sharp-insert-drive-file" /></span>
 					{:else if item.type === "link"}
-						<div class="chips bg-sapphire"></div>
+						<span class="text-sapphire"><Icon icon="ic:sharp-shortcut" /></span>
 					{:else if item.type === "dev"}
-						<div class="chips bg-peach"></div>
+						<span class="text-peach"><Icon icon="ic:sharp-keyboard" /></span>
 					{:else if item.type === "pipe"}
-						<div class="chips bg-mauve"></div>
+						<span class="text-mauve"><Icon icon="ic:sharp-compare-arrows" /></span>
 					{:else if item.type === "sock"}
-						<div class="chips bg-red"></div>
+						<span class="text-red"><Icon icon="ic:sharp-call-split" /></span>
 					{:else}
 						<div class="chips bg-gray"></div>
 					{/if}

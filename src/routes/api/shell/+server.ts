@@ -5,34 +5,55 @@ import { EventEmitter } from 'node:events';
 
 const eventEmitter = new EventEmitter();
 
+export const DELETE: RequestHandler = async () => {
+	eventEmitter.emit('restart');
+	return new Response();
+};
+
 export const PATCH: RequestHandler = async (e) => {
-    const body = await e.request.text();
-		eventEmitter.emit('stdin', body + '\n');
-    return new Response();
+	const body = await e.request.text();
+	eventEmitter.emit('stdin', body + '\n');
+	return new Response();
 };
 
 
 export const POST: RequestHandler = async () => {
-	let shellProcess = childProcess.spawn('sh', {
+	const spawnOptions: childProcess.SpawnOptionsWithoutStdio = {
+		stdio: ['pipe', 'pipe', 'pipe'],
+		detached: true,
 		cwd: '/',
-		shell: true,
-	});
-	eventEmitter.on('stdin', (data) => {
-		shellProcess.stdin.write(data);
+	};
+	let shellProcess = childProcess.spawn('sh', spawnOptions);
+	
+	eventEmitter.on('stdin', (data) => shellProcess.stdin.write(data));
+	eventEmitter.on('restart', () => {
+		if (!shellProcess.kill()) shellProcess.kill('SIGKILL');
+		shellProcess = childProcess.spawn('sh', spawnOptions);
+		setupShell(shellProcess);
 	});
 
 	return produce(async ({ emit }) => {
-		shellProcess.stdout.on('data', (data) => {
-			const {error} = emit('stdout', data.toString('utf8'));
-			if(error) return;
+		eventEmitter.on('stdout', (data) => emit('stdout', data));
+		eventEmitter.on('stderr', (data) => emit('stderr', data));
+		shellProcess.on('exit', () => {
+			shellProcess = childProcess.spawn('sh', spawnOptions);
+			setupShell(shellProcess);
 		});
-		shellProcess.stderr.on('data', (data) => {
-			const {error} = emit('stderr', data.toString('utf8'));
-			if(error) return;
-		});
-		shellProcess.on('exit', () => shellProcess = childProcess.spawn('sh'));
-		shellProcess.stdin.write('cat /etc/motd\n');
-
-		return () => {if (!shellProcess.kill()) shellProcess.kill('SIGKILL');}
+		setupShell(shellProcess);
+	}, {
+		ping: 500,
+		stop() {
+			shellProcess.kill();
+		}
 	});
 };
+
+function setupShell(shellProcess: childProcess.ChildProcessWithoutNullStreams) {
+	shellProcess.stdout.on('data', (data) => {
+		eventEmitter.emit('stdout', data.toString('utf8'));
+	});
+	shellProcess.stderr.on('data', (data) => {
+		eventEmitter.emit('stderr', data.toString('utf8'));
+	});
+	shellProcess.stdin.write('cat /etc/motd\n');
+}

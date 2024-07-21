@@ -11,12 +11,13 @@ h2 { @apply text-2xl; }
 h3 { @apply text-xl; }
 li { @apply text-sm list-disc ml-6; }
 svg { @apply inline; }
+img.grayscale { @apply mix-blend-luminosity; }
 
 button a { @apply no-underline text-subtext1; }
 button:not(.nodefault) { @apply bg-surface1; }
 button { @apply px-2 py-1 rounded-2xl; }
-progress.warn { @apply bar-full:bg-yellow; }
 
+progress.warn { @apply bar-full:bg-yellow; }
 div.chips { @apply rounded-2xl text-sm px-1.5 py-0.5 m-0.5 w-fit inline-block text-crust; }
 @layer base {
   div.card { @apply bg-base p-4 m-1; }
@@ -24,6 +25,7 @@ div.chips { @apply rounded-2xl text-sm px-1.5 py-0.5 m-0.5 w-fit inline-block te
 .btngroup { @apply inline-flex rounded-lg; }
 .btngroup button { @apply inline-flex rounded-none first:rounded-s-2xl first:ms-0 last:rounded-e-2xl border border-crust; }
 span.online { @apply text-green; }
+div.warning { @apply text-yellow; }
 
 table { @apply min-w-full bg-base; }
 progress { @apply bar-empty:bg-surface2 bar-full:bg-green w-full bar-full:transition-all bar-full:duration-200 h-2; }

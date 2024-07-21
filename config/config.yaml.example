@@ -8,6 +8,10 @@
     port: 443
     path: /
 
+# for widgets:
+
+- widget: usages # can either be: usages, network, containers, uptime
+
 # 3 more examples:
 
 - name: example2

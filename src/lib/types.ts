@@ -1,7 +1,14 @@
 import osu from 'node-os-utils';
 import os from 'os';
 
+export type WidgetContent = {
+  title: string,
+  content: string,
+  warning?: boolean,
+}
+
 export type LinkItem = {
+  widget?: string,
   name: string,
   URLlink: {
     prot: 'http' | 'https',
