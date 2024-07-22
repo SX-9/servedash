@@ -22,6 +22,10 @@ export const POST: RequestHandler = async () => {
 		stdio: ['pipe', 'pipe', 'pipe'],
 		detached: true,
 		cwd: '/',
+        env: {
+          "TERM": 'dumb',
+          "PATH": '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+        },
 	};
 	let shellProcess = childProcess.spawn('sh', spawnOptions);
 	
