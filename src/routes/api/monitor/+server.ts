@@ -29,12 +29,12 @@ export const POST: RequestHandler = async (e) => {
                             {
                                 title: 'CPU',
                                 content: `${usages.cpu}%`,
-                                warning: usages.cpu > 90,
+                                warning: usages.cpu > 85,
                             },
                             {
                                 title: 'RAM',
                                 content: `${usages.mem.usedMemPercentage}%`,
-                                warning: usages.mem.usedMemPercentage > 90,
+                                warning: usages.mem.usedMemPercentage > 85,
                             }
                         ]);
                         break;
@@ -42,11 +42,11 @@ export const POST: RequestHandler = async (e) => {
                         widgetsContents.push([
                             {
                                 title: 'Download',
-                                content: `${usages.net.total.inputMb} MB`,
+                                content: `${Math.round(usages.net.total.inputMb*100)/100} MB`,
                             },
                             {
                                 title: 'Upload',
-                                content: `${usages.net.total.outputMb} MB`
+                                content: `${Math.round(usages.net.total.outputMb*100)/100} MB`
                             },
                         ]);
                         break;

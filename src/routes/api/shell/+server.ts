@@ -40,6 +40,9 @@ export const POST: RequestHandler = async () => {
 		eventEmitter.on('stdout', (data) => emit('stdout', data));
 		eventEmitter.on('stderr', (data) => emit('stderr', data));
 		shellProcess.on('exit', () => {
+			shellProcess.stdin.removeAllListeners();
+			shellProcess.stdout.removeAllListeners();
+			shellProcess.stderr.removeAllListeners();
 			shellProcess = childProcess.spawn('sh', spawnOptions);
 			setupShell(shellProcess);
 		});
@@ -47,7 +50,12 @@ export const POST: RequestHandler = async () => {
 	}, {
 		ping: 500,
 		stop() {
-			shellProcess.kill();
+			try { shellProcess.kill(); } catch (e) {
+				shellProcess.stdin.write('exit\n');
+			}
+			shellProcess.stdin.removeAllListeners();
+			shellProcess.stdout.removeAllListeners();
+			shellProcess.stderr.removeAllListeners();
 		}
 	});
 };
