@@ -14,7 +14,7 @@ sudo ./install.sh
 ```
 
 ## Configuration
-To configure the dashboard, you can use the following YAML format:
+To configure the dashboard, you can use the following YAML format in /etc/servedash/config.yaml:
 
 ```yaml
 # links:
