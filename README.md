@@ -18,10 +18,15 @@ To configure the dashboard, you can use the following YAML format in /etc/served
 
 ```yaml
 # links:
-- name: Name of the link
-  icon: URL to the icon (optional)
-  desc: Description of the link (optional)
-  container: Container name for status checks (optional)
+- name: pihole # Name of the link
+  icon: /favicon.png # URL to the icon (optional)
+  desc: dns sinkhole # Description of the link (optional)
+  dynamic: # Requires "container" to be set
+    service: pihole
+    api:
+      key: pihole_api_key # API key for the service
+      baseurl: http://127.0.0.1:8800 # Base URL for the service
+  container: pihole # Container name for status checks (optional)
   URLlink:
     prot: https (or http)
     host: example.com (leave empty for the current domain)

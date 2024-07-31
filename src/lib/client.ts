@@ -69,6 +69,10 @@ export function readableByteSize(bytes: number, decimals: number = 2) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + sizes[i];
 }
 
+export function readableNumber(i: number) {
+  return Intl.NumberFormat('en', { notation: 'compact' }).format(i);
+}
+
 export function convertPermissions(mask: number) {
   const perms = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'rw-', 'rwx'];
   return mask

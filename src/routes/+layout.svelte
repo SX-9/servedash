@@ -51,14 +51,14 @@
 </header>
 {#key data.url}
   <main
-    in:fly={{ x: 250 * (pagesUrls.indexOf($navigating?.from?.url.pathname || '/') > pagesUrls.indexOf($navigating?.to?.url.pathname || '/') ? -1 : 1), duration: 300, delay: 300 }}
-    out:fly={{ x: 250 * (pagesUrls.indexOf($navigating?.from?.url.pathname || '/') < pagesUrls.indexOf($navigating?.to?.url.pathname || '/') ? -1 : 1), duration: 300 }}
+    in:fly={{ x: 50 * (pagesUrls.indexOf($navigating?.from?.url.pathname || '/') > pagesUrls.indexOf($navigating?.to?.url.pathname || '/') ? -1 : 1), duration: 300, delay: 300 }}
+    out:fly={{ x: 50 * (pagesUrls.indexOf($navigating?.from?.url.pathname || '/') < pagesUrls.indexOf($navigating?.to?.url.pathname || '/') ? -1 : 1), duration: 300 }}
   >
     <slot />
   </main>
   <footer
-    in:fly={{ y: 50, duration: 300, delay: 300 }}
-    out:fly={{ y: 50, duration: 300 }}
+    in:fly={{ x: 50 * (pagesUrls.indexOf($navigating?.from?.url.pathname || '/') > pagesUrls.indexOf($navigating?.to?.url.pathname || '/') ? -1 : 1), duration: 300, delay: 300 }}
+    out:fly={{ x: 50 * (pagesUrls.indexOf($navigating?.from?.url.pathname || '/') < pagesUrls.indexOf($navigating?.to?.url.pathname || '/') ? -1 : 1), duration: 300 }}
     class="mt-4 mb-20 sm:mb-auto flex justify-center items-center"
   >
     <p>made by <a href="https://satr14.is-a.dev">satr14</a></p>

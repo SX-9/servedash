@@ -70,25 +70,37 @@
               </a>
             {/if}
             <div class="flex-1">
-              <h3><a href={toUrl(item)} on:click={(e) => confirmOpen(e, i)} target="_blank">{item.name}</a></h3>
-              {#if item.desc}
-                <span>{item.desc}</span>
+              {#if item?.dynamic && (item?.container && $status?.[i])}
+                {#if $widgetContents?.[i]?.length}
+                  {#each $widgetContents?.[i] as widget}
+                    <div class="bg-surface0 text-text text-xs chips nodefault">
+                      <b class:warning={widget.warning}>{widget.content}</b> {widget.title}
+                    </div>
+                  {/each}
+                {:else}
+                  <h3>Loading...</h3>
+                {/if}
+              {:else}
+                <h3><a href={toUrl(item)} on:click={(e) => confirmOpen(e, i)} target="_blank" class="no-underline">{item.name}</a></h3>
+                <span>{item.desc || ''}</span>
               {/if}
             </div>
-            {#if item?.container}
-              {#if $status?.[i]}
-                <div class="text-green status">
-                  <Icon icon="ic:sharp-arrow-drop-up" />
-                </div>
+            {#if !item?.dynamic}
+              {#if item?.container}
+                {#if $status?.[i]}
+                  <div class="text-green status">
+                    <Icon icon="ic:sharp-arrow-drop-up" />
+                  </div>
+                {:else}
+                  <div class="text-red status">
+                    <Icon icon="ic:sharp-arrow-drop-down" />
+                  </div>
+                {/if}
               {:else}
-                <div class="text-red status">
-                  <Icon icon="ic:sharp-arrow-drop-down" />
+                <div class="text-sapphire status">
+                  <Icon icon="ic:sharp-arrow-right" />
                 </div>
               {/if}
-            {:else}
-              <div class="text-sapphire status">
-                <Icon icon="ic:sharp-arrow-right" />
-              </div>
             {/if}
         {/if}
         </div>

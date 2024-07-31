@@ -1,4 +1,4 @@
-import type { LinkItem, WidgetContent } from '$lib/types';
+import type { LinkItem, PluginClass, WidgetContent } from '$lib/types';
 import { delay, docker, getUsage } from '$lib';
 import type { RequestHandler } from './$types';
 import { readableUptime } from '$lib/client';
@@ -8,8 +8,9 @@ import os from 'os';
 export const POST: RequestHandler = async (e) => {
     const body: LinkItem[] = await e.request.json();
     const ctsChecks: string[] = body.map((item) => item?.container || '');
-    const widgets: string[] = body.map((item) => item?.widget || '');
-    
+    const widgets: [number, string][] = body.map((item, i) => [i, item?.widget || '']);
+    const plugins = import.meta.glob('$lib/plugins/*.ts') as Record<string, undefined | (() => Promise<{default:PluginClass}>)>;
+
     return produce(async ({ emit }) => {
         while (true) {
             
@@ -22,7 +23,7 @@ export const POST: RequestHandler = async (e) => {
             
             const widgetsContents: (WidgetContent[] | undefined)[] = [];
             const usages = await getUsage();
-            for (const widget of widgets) {
+            for (const [i, widget] of widgets) {
                 switch (widget) {
                     case 'usages':
                         widgetsContents.push([
@@ -75,13 +76,30 @@ export const POST: RequestHandler = async (e) => {
                         ]);
                         break;
                     default:
-                        widgetsContents.push(undefined);
+                        if (!body[i]?.dynamic) {
+                            widgetsContents.push(undefined);
+                            break;
+                        }
+
+                        const Plugin = await plugins[`/src/lib/plugins/${body[i]?.dynamic?.service}.ts`]?.();
+                        if (!Plugin) {
+                            widgetsContents.push(undefined);
+                            break;
+                        }
+
+                        if (ctsChecks[i] && !results[i]) {
+                            widgetsContents.push(undefined);
+                            break;
+                        }
+
+                        const plugin = new Plugin.default(body[i]?.dynamic?.api?.key || '', body[i]?.dynamic?.api?.baseurl);
+                        widgetsContents.push(await plugin.getContent());
                         break;
                 }
             }
             emit('widgets', JSON.stringify(widgetsContents));
 
-            await delay(2500);
+            await delay(1500);
         }
     });
 };

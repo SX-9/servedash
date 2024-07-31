@@ -1,6 +1,12 @@
 import osu from 'node-os-utils';
 import os from 'os';
 
+export type PluginClass = {
+  new (baseurl: string, key?:string): {
+      getContent(): Promise<WidgetContent[]>;
+  };
+};
+
 export type WidgetContent = {
   title: string,
   content: string,
@@ -9,16 +15,23 @@ export type WidgetContent = {
 
 export type LinkItem = {
   widget?: string,
+  icon?: string,
   name: string,
+  desc?: string,
+  dynamic?: {
+    service: string,
+    api: {
+      baseurl: string,
+      key?: string,
+    },
+  },
+  container?: string,
   URLlink: {
     prot: 'http' | 'https',
     host?: string,
     port: number,
     path: string,
   },
-  container?: string,
-  desc?: string,
-  icon?: string,
 }
 
 export type dirContents = {
